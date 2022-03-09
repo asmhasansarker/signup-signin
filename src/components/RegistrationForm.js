@@ -2,6 +2,7 @@ import React from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormikControl from "./FormikControl";
+import axios from "axios";
 
 // const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 
@@ -30,7 +31,7 @@ function RegistrationForm() {
       .email("Must be a valid email")
       .max(255)
       .required("Email is required"),
-    password: Yup.string().required('Password is required'),
+    password: Yup.string().required("Password is required"),
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password"), ""], "Passwords must match")
       .required("Required"),
@@ -46,6 +47,25 @@ function RegistrationForm() {
 
   const onSubmit = (values, formik) => {
     console.log("Form data", values);
+    // axios.post(`http://localhost:5000/register`, { values }).then((res) => {
+    //   console.log(res);
+    //   console.log(res.data);
+    // });
+
+    fetch("http://localhost:5000/register", {
+      method: "POST", // or 'PUT'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
     formik.resetForm();
   };
 

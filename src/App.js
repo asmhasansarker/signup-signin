@@ -8,7 +8,7 @@ import { theme, ThemeProvider } from '@chakra-ui/core'
 
 function App () {
   return (
-    <ThemeProvider theme={theme}>
+    // <ThemeProvider theme={theme}>
       <div className='App'>
         
         {/* <FormikContainer /> */}
@@ -16,7 +16,7 @@ function App () {
         <RegistrationForm />
         {/* <EnrollmentForm /> */}
       </div>
-    </ThemeProvider>
+    // </ThemeProvider>
   )
 }
 
